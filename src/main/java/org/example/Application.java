@@ -1,7 +1,5 @@
 package org.example;
 
-import java.sql.Array;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -19,8 +17,8 @@ public class Application {
         final EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         Immeuble immo = new Immeuble();
-        immo.setNoimm("15");
-        immo.setAdresse("avenue lolaL");
+        immo.setNoimm("17");
+        immo.setAdresse("14 avenue des champs");
         immo.setVille("lyon");
 
 
@@ -30,14 +28,15 @@ public class Application {
        //Immeuble tableImmo = entityManager.find(Immeuble.class,"");
         //System.out.println(tableImmo);
         entityManager.persist(immo);
-        List<Immeuble> imm;
+
     Query query = entityManager.createNamedQuery("trouverVille");
     query.setParameter("ville", "lyon");
     query.setParameter("numImm", "2");
 
         System.out.println(query.getResultList());
 
-    //imm = entityManager.createNativeQuery("SELECT immeu FROM Immeuble immeu where immeu.ville = :ville").getResultList();
+      Query nquery = entityManager.createNativeQuery("SELECT * FROM Immeuble where ville ='paris' AND noimm = 1");
+        System.out.println(nquery.getResultList());
         entityManager.getTransaction().commit();
 
 
